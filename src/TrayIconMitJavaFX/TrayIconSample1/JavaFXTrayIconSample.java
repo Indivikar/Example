@@ -1,4 +1,4 @@
-package TrayIconMitJavaFX;
+package TrayIconMitJavaFX.TrayIconSample1;
 
 import javafx.application.*;
 import javafx.geometry.Pos;
@@ -108,7 +108,7 @@ public class JavaFXTrayIconSample extends Application {
             // if the user double-clicks on the tray icon, show the main app stage.
             trayIcon.addActionListener(event -> Platform.runLater(this::showStage));
 
-            // if the user selects the default menu item (which includes the app name), 
+            // if the user selects the default menu item (which includes the app name),
             // show the main app stage.
             java.awt.MenuItem openItem = new java.awt.MenuItem("hello, world");
             openItem.addActionListener(event -> Platform.runLater(this::showStage));
