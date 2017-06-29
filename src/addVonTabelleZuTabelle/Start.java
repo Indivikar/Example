@@ -21,7 +21,7 @@ public class Start extends Application {
 
         Scene scene = new Scene(root, 600, 600);
 
-        stage.setTitle("Table to table transition");
+        stage.setTitle("Tabelle zu Tabelle verschieben");
         stage.setScene(scene);
         stage.show();
     }
