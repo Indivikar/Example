@@ -1,9 +1,11 @@
 package CustomControls.CustomControl1.mvc;
 
-import com.example.javafx.choice.ChoiceCell;
-import com.example.javafx.choice.ChoiceModel;
+
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import CustomControls.CustomControl1.choice.ChoiceCell;
+import CustomControls.CustomControl1.choice.ChoiceModel;
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;

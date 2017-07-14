@@ -1,7 +1,5 @@
 package FXML.NodesMitPropertiesDatei;
 
-import com.example.javafx.choice.ChoiceCell;
-import com.example.javafx.choice.ChoiceModel;
 
 import java.awt.Desktop;
 import java.io.IOException;
@@ -23,20 +21,20 @@ public class MainController implements Initializable {
 	FxmlMvcPatternDemo fxmlMvcPatternDemo;
 
 	@FXML private TextField textField;
-	
+
 	@FXML private void button(ActionEvent event) {
 		if(textField.getText().isEmpty()){
 			textField.setText(fxmlMvcPatternDemo.getResourceBundle().getString("textfieldText"));
 		}else {
 			textField.setText("");
 		}
-		
+
 	}
-	
+
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-    	
+
     }
 
 	public void setMainStage(FxmlMvcPatternDemo fxmlMvcPatternDemo) {
