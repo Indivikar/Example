@@ -1,4 +1,4 @@
-package Kopieren.AusZwischenablageEinfuegen.controller;
+package Vererbung.controller;
 
 import java.awt.Toolkit;
 import java.awt.datatransfer.DataFlavor;
@@ -8,7 +8,8 @@ import java.util.ResourceBundle;
 
 import javax.swing.JOptionPane;
 
-import Kopieren.AusZwischenablageEinfuegen.Start;
+import Vererbung.Start;
+import Vererbung.nodes.TextFieldEigenschaften;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Platform;
@@ -65,8 +66,12 @@ public class MainController implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		setDrop(textField1);
-		setDrop(textField2);
+		
+		
+		new TextFieldEigenschaften(textField1);
+		new TextFieldEigenschaften(textField2);
+		
+		
 
 		scrollPane.setContent(hBoxStichwort);
 		scrollPane.setHbarPolicy(ScrollBarPolicy.ALWAYS);
@@ -232,6 +237,7 @@ public class MainController implements Initializable {
 
 	public void setMainStage(Start start) {
 		splitString(ausZwischenablageEinfuegen());
+		
 
 	}
 
