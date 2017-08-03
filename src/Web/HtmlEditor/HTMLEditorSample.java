@@ -29,7 +29,7 @@ public class HTMLEditorSample extends Application {
 		root.setAlignment(Pos.BOTTOM_LEFT);
 
 		final HTMLEditorControl htmlEditor = new HTMLEditorControl();
-		htmlEditor.setPrefHeight(245);
+		htmlEditor.setPrefHeight(245);		
 		//htmlEditor.setHtmlText("");
 
 		//htmlEditor.setHtmlText(null);

@@ -25,6 +25,11 @@ public class HTMLEditorControl  extends HTMLEditor{
 		super();
 		setHtmlText(INITIAL_TEXT);
 		addKeyListeners();
+		setStyle(
+		        "-fx-font: 16 Arial;"
+		        + "-fx-border-color: brown; "
+		        + "-fx-border-style: dotted;"
+		        + "-fx-border-width: 2;");
 	}
 
 	/**
