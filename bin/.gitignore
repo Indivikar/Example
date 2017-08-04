@@ -1,4 +1,3 @@
-/Vererbung/
 /Animation/
 /Calender/
 /CheckBox/
@@ -6,6 +5,7 @@
 /ComboBox/
 /CustomControls/
 /Dialog/
+/DokumentenBearbeitung/
 /DragAndDrop/
 /FXML/
 /InfosAuslesen/
@@ -21,8 +21,6 @@
 /TextArea/
 /TextField/
 /ToggleButton/
-/TreeView/
-/Web/
 /Bindings/
 /Button/
 /Charts/
@@ -43,4 +41,7 @@
 /Text/
 /Threads/
 /TrayIconMitJavaFX/
+/TreeView/
+/Vererbung/
+/Web/
 /xxxGehtNichtxxx/
