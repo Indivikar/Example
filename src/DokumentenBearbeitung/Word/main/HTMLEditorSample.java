@@ -1,6 +1,16 @@
 package DokumentenBearbeitung.Word.main;
 
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
+
+import javax.xml.crypto.Data;
+
+import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.docx4j.openpackaging.exceptions.Docx4JException;
 import org.docx4j.openpackaging.exceptions.InvalidFormatException;
 import org.docx4j.openpackaging.packages.WordprocessingMLPackage;
@@ -60,13 +70,36 @@ public class HTMLEditorSample extends Application {
 		root.setAlignment(Pos.CENTER);
 		showHTMLButton.setOnAction(new EventHandler<ActionEvent>() {
 			@Override
-			public void handle(ActionEvent arg0) {				
+			public void handle(ActionEvent arg0) {
 				htmlCode.setText(htmlEditor.getHtmlText());
 				save(htmlEditor.getHtmlText());
 			}
 		});
 
-		root.getChildren().addAll(htmlEditor, showHTMLButton, scrollPane);
+		Button getInhaltDerWordDatei = new Button("Lade inhalt der Word-Datei");
+		root.setAlignment(Pos.CENTER);
+		getInhaltDerWordDatei.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent arg0) {
+				long startTime=System.currentTimeMillis();
+				  try {
+				    XWPFDocument document=new XWPFDocument(Data.class.getResourceAsStream("DocxStructures.docx"));
+				    File outFile=new File("target/DocxStructures.htm");
+				    outFile.getParentFile().mkdirs();
+				    OutputStream out=new FileOutputStream(outFile);
+				    XWPF2XHTMLConverter.getInstance().convert(document,out,null);
+				  }
+				 catch (  Throwable e) {
+				    e.printStackTrace();
+				  }
+				  System.out.println("Generate DocxStructures.htm with " + (System.currentTimeMillis() - startTime) + " ms.");
+			}
+		});
+
+		final HTMLEditorControl htmlEditorInhaltDerWordDatei = new HTMLEditorControl();
+		htmlEditorInhaltDerWordDatei.setPrefHeight(245);
+
+		root.getChildren().addAll(htmlEditor, showHTMLButton, scrollPane, getInhaltDerWordDatei, htmlEditorInhaltDerWordDatei);
 		scene.setRoot(root);
 		stage.setScene(scene);
 		stage.show();
@@ -76,20 +109,20 @@ public class HTMLEditorSample extends Application {
 		WordprocessingMLPackage wordMLPackage;
 		try {
 			wordMLPackage = WordprocessingMLPackage.createPackage();
-//			String html = "<html><head><title>Import me</title></head><body><p>Hello World!</p></body></html>"; 
+//			String html = "<html><head><title>Import me</title></head><body><p>Hello World!</p></body></html>";
 
-			wordMLPackage.getMainDocumentPart().addAltChunk(AltChunkType.Html, html.getBytes()); 
+			wordMLPackage.getMainDocumentPart().addAltChunk(AltChunkType.Html, html.getBytes());
 
 
 			wordMLPackage.save(new java.io.File("d:\\test.docx"));
-			
+
 		} catch (Docx4JException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 
 	}
-	
+
 	public static void main(String[] args) {
 		launch(args);
 	}
