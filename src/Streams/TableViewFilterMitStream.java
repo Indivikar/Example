@@ -1,9 +1,13 @@
 package Streams;
 
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.beans.property.SimpleStringProperty;
@@ -16,20 +20,25 @@ import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Tooltip;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 public class TableViewFilterMitStream extends Application {
 
     private TableView<Person> table = new TableView<Person>();
     private ObservableList<Person> data = FXCollections.observableArrayList(
             new Person("Jacob", "Williams", "jacob.smith@example.com"),
+            new Person("Jacob", "Williams", "jacob.smith@example.com jacob.smith@example.com jacob.smith@example.com jacob.smith@example.com jacob.smith@example.com jacob.smith@example.com "
+            		+ "\njacob.smith@example.com jacob.smith@example.com jacob.smith@example.com jacob.smith@example.com jacob.smith@example.com jacob.smith@example.com jacob.smith@example.com "),
             new Person("Isabella", "Johnson", "isabella.johnson@example.com"),
             new Person("Emma", "Williams", "ethan.williams@example.com"),
             new Person("Emma", "Brown", "emma.jones@example.com"),
@@ -79,6 +88,30 @@ public class TableViewFilterMitStream extends Application {
         emailCol.setCellValueFactory(
                 new PropertyValueFactory<Person, String>("email"));
 
+        emailCol.setCellFactory(column -> {
+			return new TableCell<Person, String>() {
+		         @Override
+		         protected void updateItem(String item, boolean empty)
+		          {
+		             super.updateItem(item, empty);
+
+		             if(item != null){
+	            	 	setGraphic(null);
+						setText( item );
+							
+	            		Tooltip toolTip = new Tooltip(item);
+	            		toolTipEigenschaften(toolTip);
+			            setTooltip(toolTip); 
+				            
+		             } else {
+		            	 setGraphic(null);
+		            	 setText( null );
+		            	 setTooltip(null);
+		             }		           	             
+		          }
+		       };
+		    });
+        
         table.setItems(filteredItems);
         table.getColumns().addAll(firstNameCol, lastNameCol, emailCol);
 
@@ -191,6 +224,31 @@ public class TableViewFilterMitStream extends Application {
 	        optionsLastName.add("Alle");
 	        optionsLastName.addAll(lastNameDerPersonen);
 	        comboBoxLastName.getSelectionModel().select(0);
+	}
+    
+	private void toolTipEigenschaften(Tooltip toolTip) {
+	    try {
+
+	        Class<?> clazz = toolTip.getClass().getDeclaredClasses()[0];
+	        Constructor<?> constructor = clazz.getDeclaredConstructor(
+	                Duration.class,
+	                Duration.class,
+	                Duration.class,
+	                boolean.class);
+	        constructor.setAccessible(true);
+	        Object tooltipBehavior = constructor.newInstance(
+	                new Duration(250),  //open
+	                new Duration(600000), //visible
+	                new Duration(200),  //close
+	                false);
+	        Field fieldBehavior = toolTip.getClass().getDeclaredField("BEHAVIOR");
+	        fieldBehavior.setAccessible(true);
+	        fieldBehavior.set(toolTip, tooltipBehavior);
+	    }
+	    catch (Exception e) {
+	    	throw new IllegalStateException(e);
+	    }
+
 	}
     
     public static class Person {
