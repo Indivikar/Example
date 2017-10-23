@@ -2,6 +2,7 @@ package Streams;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -155,6 +156,7 @@ public class TableViewFilterMitStream extends Application {
 
     private void filtern() {
     	
+    	System.out.println("filtern()");
 	    	List<Person> filteredList = data.stream()
 //			        .sorted()
 			        .filter(string -> string.getFirstName().toLowerCase().contains(textField.getText().toLowerCase())
@@ -164,6 +166,7 @@ public class TableViewFilterMitStream extends Application {
 //			        .filter(string -> string.getEmail().toLowerCase().contains(textField.getText().toLowerCase()))
 			        .filter(string -> isFirsName(string.getFirstName(), comboBoxFirstName.getSelectionModel().getSelectedItem()))
 			        .filter(string -> isLastName(string.getLastName(), comboBoxLastName.getSelectionModel().getSelectedItem()))
+			        .sorted(Comparator.comparing(Person::getLastName))
 			        .collect(Collectors.toList());
 	        filteredItems.clear();
 	        filteredItems.addAll(filteredList);
@@ -197,9 +200,9 @@ public class TableViewFilterMitStream extends Application {
     }
     
     private void setItems() {
-    	
+    		System.out.println("setItems()");
     		// Set TableView Items
-	    	List<Person> filteredList = data.stream()
+	    	List<Person> filteredList = data.stream()		    			
 			        .collect(Collectors.toList());
 	        filteredItems.clear();
 	        filteredItems.addAll(filteredList);
